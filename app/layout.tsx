@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NetworkBackground from "@/components/NetworkBackground";
+import TopNav from "@/components/TopNav";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,11 +21,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased dark`}
+      className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black text-white relative">
-        <NetworkBackground />
-        <div className="relative z-10">
+      <body className="min-h-full flex flex-col bg-white text-zinc-950 relative selection:bg-blue-100 selection:text-blue-900">
+        <div className="fixed inset-0 pointer-events-none hero-bg -z-10" />
+        <TopNav />
+        <div className="relative">
           {children}
         </div>
       </body>
