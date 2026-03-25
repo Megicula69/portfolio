@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import GlassCard from "@/components/GlassCard";
 import NetworkLines from "@/components/NetworkLines";
@@ -23,15 +25,15 @@ const projects = [
   },
   {
     title: "P.A.C.E.",
-    description: "\"A robust platform empowering alumni with curated career opportunities while providing institutions with comprehensive employability insights and analytics.\" (In Progress)",
+    description: "\"A robust platform empowering alumni with curated career opportunities while providing institutions with comprehensive employability insights and analytics.",
     link: "https://github.com/KlyrhonMiko/pace.git",
     tags: ["In Progress", "Analytics", "Career Platform"]
   },
   {
     title: "JTCI Carpet Gallery",
-    description: "A visually rich corporate website built with modern frontend practices. Highlights product showrooms, brand identity, and smooth navigation through elegant layouts. (In Progress)",
+    description: "A visually rich corporate website built with modern frontend practices. Highlights product showrooms, brand identity, and smooth navigation through elegant layouts.",
     link: "https://github.com/KlyrhonMiko/jtci.git",
-    tags: ["Corporate", "Premium", "Product Showcase"]
+    tags: ["In Progress", "Corporate", "Premium", "Product Showcase"]
   }
 ];
 
@@ -43,6 +45,26 @@ const techStack = {
 };
 
 export default function Home() {
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <main className="min-h-screen relative">
       {/* Moving Background */}
@@ -54,8 +76,8 @@ export default function Home() {
       <NetworkLines />
 
       {/* Hero Section */}
-      <section id="home" className="pt-40 pb-20 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto flex flex-col items-start gap-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold uppercase tracking-wider">
+      <section id="home" className="pt-40 pb-20 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto flex flex-col items-start gap-8 reveal active">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold uppercase tracking-wider reveal" style={{ transitionDelay: '0.1s' }}>
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
@@ -63,18 +85,18 @@ export default function Home() {
           Available for opportunities
         </div>
 
-        <div className="space-y-4 max-w-4xl">
+        <div className="space-y-4 max-w-4xl reveal" style={{ transitionDelay: '0.2s' }}>
           <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-zinc-900 leading-[0.9]">
             Chris Nicolai <br /> <span className="text-zinc-400">Folloso</span>
           </h1>
           <h2 className="text-2xl md:text-3xl font-medium text-zinc-600">Frontend Developer</h2>
         </div>
 
-        <p className="max-w-2xl text-zinc-500 leading-relaxed text-xl md:text-2xl font-light">
+        <p className="max-w-2xl text-zinc-500 leading-relaxed text-xl md:text-2xl font-light reveal" style={{ transitionDelay: '0.3s' }}>
           I build intuitive, responsive, and visually engaging user interfaces that transform complex logic into seamless user experiences. I focus on the <span className="text-zinc-900 font-normal underline decoration-blue-500/30 decoration-4 underline-offset-4">“how it feels”</span> so the “what it does” becomes effortless.
         </p>
 
-        <div className="flex flex-wrap gap-4 pt-4">
+        <div className="flex flex-wrap gap-4 pt-4 reveal" style={{ transitionDelay: '0.4s' }}>
           <a href="#projects" className="px-8 py-4 bg-zinc-900 text-white rounded-full font-medium hover:bg-zinc-800 transition-all hover:shadow-lg hover:shadow-zinc-200">
             View Projects
           </a>
@@ -93,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* About Me Section */}
-      <section id="about" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto">
+      <section id="about" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto reveal">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
@@ -168,13 +190,13 @@ export default function Home() {
       </section>
 
       {/* Interactive Tech Stack */}
-      <section id="tech-stack" className="py-32 border-y border-zinc-100 bg-zinc-50/20 overflow-hidden">
+      <section id="tech-stack" className="py-32 border-y border-zinc-100 bg-zinc-50/20 overflow-hidden reveal">
         <div className="px-6 md:px-20 lg:px-40 max-w-7xl mx-auto mb-16">
           <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 mb-4">Technical Arsenal</h2>
           <p className="text-4xl md:text-6xl font-bold text-zinc-900 tracking-tighter">Tools of the Trade</p>
         </div>
         {/* Small Elegant Marquee */}
-        <div className="space-y-4 pause-on-hover mb-20 px-6 md:px-20 overflow-hidden">
+        <div className="space-y-4 mb-20 px-6 md:px-20 overflow-hidden reveal">
           <div className="flex whitespace-nowrap overflow-hidden rounded-full">
             <div className="flex gap-8 animate-marquee items-center">
               {[...techStack.languages, ...techStack.backend, ...techStack.frontend, ...techStack.tools].map((tech, i) => (
@@ -300,7 +322,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto space-y-16">
+      <section id="projects" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto space-y-16 reveal">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-4">
             <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600">Project Gallery</h2>
@@ -337,8 +359,67 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Journey Section */}
+      <section id="journey" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto space-y-16 reveal">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="space-y-4">
+            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600">My Journey</h2>
+            <p className="text-4xl md:text-6xl font-bold text-zinc-900 tracking-tighter">Key Highlights</p>
+          </div>
+          <p className="text-zinc-500 max-w-xs">
+            A brief overview of my professional path and significant milestones.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <GlassCard className="space-y-6 reveal">
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">2026 — Present</span>
+              <h3 className="text-2xl font-bold text-zinc-900">Freelance Developer</h3>
+              <p className="text-zinc-500 font-medium italic">Self-Employed</p>
+            </div>
+            <ul className="space-y-3">
+              <li className="flex gap-3 text-zinc-600 text-sm">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Delivered 5+ production-ready frontend solutions for diverse clients.</span>
+              </li>
+              <li className="flex gap-3 text-zinc-600 text-sm">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Specialized in high-performance React and Next.js user interfaces.</span>
+              </li>
+              <li className="flex gap-3 text-zinc-600 text-sm">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Focused on conversion-oriented UI/UX design and visual storytelling.</span>
+              </li>
+            </ul>
+          </GlassCard>
+
+          <GlassCard className="space-y-6 reveal">
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">2023 — Present</span>
+              <h3 className="text-2xl font-bold text-zinc-900">BS In Information Technology</h3>
+              <p className="text-zinc-500 font-medium italic">Pamantasan ng Lungsod ng Pasig</p>
+            </div>
+            <ul className="space-y-3">
+              <li className="flex gap-3 text-zinc-600 text-sm">
+                <span className="text-zinc-400 mt-1">•</span>
+                <span>Consistent Academic Excellence Candidate (Dean's Lister).</span>
+              </li>
+              <li className="flex gap-3 text-zinc-600 text-sm">
+                <span className="text-zinc-400 mt-1">•</span>
+                <span>Core focus on Software Architecture, Systems Logic, and Web Dev.</span>
+              </li>
+              <li className="flex gap-3 text-zinc-600 text-sm">
+                <span className="text-zinc-400 mt-1">•</span>
+                <span>Active leadership and participation in local tech community projects.</span>
+              </li>
+            </ul>
+          </GlassCard>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto">
+      <section id="contact" className="py-32 px-6 md:px-20 lg:px-40 max-w-7xl mx-auto reveal">
         <div className="bg-zinc-900 rounded-[3rem] p-12 md:p-24 text-center space-y-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-500/10 blur-[100px] rounded-full" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-indigo-500/10 blur-[100px] rounded-full" />
@@ -404,8 +485,9 @@ export default function Home() {
             <nav className="flex flex-col gap-4 text-zinc-500">
               <a href="#home" className="hover:text-blue-600 transition-colors">Home</a>
               <a href="#about" className="hover:text-blue-600 transition-colors">About</a>
-              <a href="#tech-stack" className="hover:text-blue-600 transition-colors">Tech Stack</a>
               <a href="#projects" className="hover:text-blue-600 transition-colors">Projects</a>
+              <a href="#journey" className="hover:text-blue-600 transition-colors">Journey</a>
+              <a href="#tech-stack" className="hover:text-blue-600 transition-colors">Tech Stack</a>
               <a href="#contact" className="hover:text-blue-600 transition-colors">Contact</a>
             </nav>
           </div>

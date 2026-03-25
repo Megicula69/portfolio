@@ -52,7 +52,7 @@ const NetworkLines = () => {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(59, 130, 246, 0.2)";
+        ctx.fillStyle = "rgba(59, 130, 246, 0.4)";
         ctx.fill();
       }
     }
@@ -80,7 +80,7 @@ const NetworkLines = () => {
 
           if (dist < connectionDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 * (1 - dist / connectionDistance)})`;
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.25 * (1 - dist / connectionDistance)})`;
             ctx.lineWidth = 1;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
